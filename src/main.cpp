@@ -20,6 +20,7 @@ int main() {
 
   counterRepeatCharacters(text, asciiTable);
   sortCharacters(list, asciiTable);
+  combineNodes(list);
 
   show(list);
 
