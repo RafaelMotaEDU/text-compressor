@@ -11,6 +11,7 @@ int main() {
   string text;
   int asciiTable[ASCII_LENGTH];
   Lue<char> list;
+  Root<char> *huffmanTree;
 
   initialize(list);
   initialize(asciiTable);
@@ -20,9 +21,7 @@ int main() {
 
   counterRepeatCharacters(text, asciiTable);
   sortCharacters(list, asciiTable);
-  combineNodes(list);
-
-  show(list);
+  huffmanTree = combineNodes(list);
 
   return 0;
 }
