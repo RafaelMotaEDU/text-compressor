@@ -1,3 +1,9 @@
+/* 
+  Disciplina: Estruturas de Dados
+  Professor: Marcos Cesar Cardoso Carrard
+  Alunos: Rafael Mota Alves e Daniel Sansão Araldi
+*/
+
 #include <iostream>
 #include <fstream>
 
