@@ -73,31 +73,36 @@ string getEncodedText(Root<T> *tree, string text) {
   for (int index = 0; index < text.length(); index++) {
     string bitcode = "";
     findBitcodeOfHuffmanTree(tree, bitcode, text[index]);
-    cout << bitcode << " " << endl;
+    bitcodeInverter(bitcode);
     encodedText += bitcode;
   }
   return encodedText;
 }
 
-// TODO: Still not working!
 template<typename T>
-char getDecodedText(Root<T> *tree, string encodedText) {
-  if (tree == NULL) return tree->data;
-  static string text = "";
-  static int counter = 0;
-  
-  while (encodedText[counter]) {
-    if (encodedText[counter] == '0') {
+string getDecodedText(Root<T> *tree, string encodedText) {
+  string decodedText = "";
+  int index = 0;
 
-      text = getDecodedText(tree->left, encodedText);
-    }
+  while (index < encodedText.length()) decodeBinaryToText(tree, encodedText, decodedText, index);
 
-    if (encodedText[counter] == '1') {
-      text = getDecodedText(tree->left, encodedText);
-    }
-    counter++;
+  return decodedText;
+}
+
+template<typename T>
+void decodeBinaryToText(Root<T> *tree, const string &encodedText, string &decodedText, int &index) {
+  if (tree->left == NULL && tree->right == NULL) {
+    decodedText += tree->data;
+    return;
   }
 
-  cout << text;
-  return 'a';
+  if (index < encodedText.length()) {
+    if (encodedText[index] == '0') {
+      index++;
+      decodeBinaryToText(tree->left, encodedText, decodedText, index);
+    } else if (encodedText[index] == '1') {
+      index++;
+      decodeBinaryToText(tree->right, encodedText, decodedText, index);
+    }
+  }
 }
