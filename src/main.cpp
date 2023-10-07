@@ -22,10 +22,13 @@ int main() {
   sortCharacters(list, asciiTable);
   Root<char> *huffmanTree = combineNodes(list);
 
-  const string encondedText = getEncodedText(huffmanTree, text);
-  const char decodedText = getDecodedText(huffmanTree, encondedText);
+  string encodedText = getEncodedText(huffmanTree, text);
 
-  cout << decodedText << endl;
+  string decodedText = getDecodedText(huffmanTree, encodedText);
+
+  cout << encodedText << endl;
+
+  cout << endl << decodedText << endl;
 
   return 0;
 }
