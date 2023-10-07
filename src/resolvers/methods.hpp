@@ -22,7 +22,7 @@ void sortCharacters(Lue<T> &list, int asciiTable[]) {
 }
 
 template<typename T>
-Root<T> *combineNodes(Lue<T>& list) {
+Root<T> *createHuffmanTree(Lue<T>& list) {
   while(!(list.start == NULL || list.start->connect == NULL)){
     Root<T> *firstValue = (list.start->root);
     Root<T> *secondValue = (list.start->connect->root);
@@ -84,13 +84,13 @@ string getDecodedText(Root<T> *tree, string encodedText) {
   string decodedText = "";
   int index = 0;
 
-  while (index < encodedText.length()) decodeBinaryToText(tree, encodedText, decodedText, index);
+  while (index < encodedText.length()) binaryToText(tree, encodedText, decodedText, index);
 
   return decodedText;
 }
 
 template<typename T>
-void decodeBinaryToText(Root<T> *tree, const string &encodedText, string &decodedText, int &index) {
+void binaryToText(Root<T> *tree, const string &encodedText, string &decodedText, int &index) {
   if (tree->left == NULL && tree->right == NULL) {
     decodedText += tree->data;
     return;
@@ -99,10 +99,60 @@ void decodeBinaryToText(Root<T> *tree, const string &encodedText, string &decode
   if (index < encodedText.length()) {
     if (encodedText[index] == '0') {
       index++;
-      decodeBinaryToText(tree->left, encodedText, decodedText, index);
+      binaryToText(tree->left, encodedText, decodedText, index);
     } else if (encodedText[index] == '1') {
       index++;
-      decodeBinaryToText(tree->right, encodedText, decodedText, index);
+      binaryToText(tree->right, encodedText, decodedText, index);
     }
   }
+}
+
+
+string menu(){
+    int option = -1;
+    string text;
+
+    do{
+        cout << "Choose this options:" << endl;
+        cout << "1. Text compress" << endl;
+        cout << "2. File text compress" << endl;
+        cout << "3. Exit" << endl;
+        cin >> option;
+
+        cin.ignore();
+
+        switch(option){
+            case 1: {
+                cout << "Insert a text: ";
+                getline(cin, text);
+                return text;
+                break;
+            }
+            case 2: {
+                std::ifstream file;
+                file.open("./files/example.txt");
+                if(file.is_open()){
+                    while(getline(file, text)){
+                        return text;
+                    }
+                    file.close();
+                } else {
+                    cout << "Unable to open file";
+                    return "";
+                }
+                break;
+            }
+            case 3: {
+                cout << "Bye bye!" << endl;
+                return "";
+            }
+            default: {
+                cout << "Invalid option! Try again" << endl;
+                system("pause");
+                system("cls");
+                break;
+            }
+
+        }
+    }while (option != 3);
 }
