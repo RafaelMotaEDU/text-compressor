@@ -14,3 +14,12 @@ void show(Lue<T> list) {
     auxiliar = auxiliar->connect;
   }
 }
+
+void bitcodeInverter(string &bitcode){
+    string bitCodeInverted = "";
+    for(int index = bitcode.length() - 1; index >= 0; index--){
+        bitCodeInverted += bitcode[index];
+    }
+    bitcode = bitCodeInverted;
+}
+
