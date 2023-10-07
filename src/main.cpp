@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 #include "./structs.hpp"
 #include "./native.hpp"
@@ -8,27 +9,27 @@
 using namespace std;
 
 int main() {
-  string text;
   int asciiTable[ASCII_LENGTH];
   Lue<char> list;
 
   initialize(list);
   initialize(asciiTable);
 
-  cout << "Insert a text: ";
-  getline(cin, text);
+  const string text = menu();
+  if(text == "") return 0;
 
   counterRepeatCharacters(text, asciiTable);
   sortCharacters(list, asciiTable);
-  Root<char> *huffmanTree = combineNodes(list);
+  Root<char> *huffmanTree = createHuffmanTree(list);
 
-  string encodedText = getEncodedText(huffmanTree, text);
+  const string encodedText = getEncodedText(huffmanTree, text);
+  const string decodedText = getDecodedText(huffmanTree, encodedText);
 
-  string decodedText = getDecodedText(huffmanTree, encodedText);
-
+  cout << endl << "Encoded Text: ";
   cout << encodedText << endl;
 
-  cout << endl << decodedText << endl;
+  cout << endl << "Decoded (Original) Text: ";
+  cout << decodedText << endl;
 
   return 0;
 }
